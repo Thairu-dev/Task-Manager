@@ -54,7 +54,7 @@ class Assignment(db.Model, SerializerMixin):
     __tablename__ = 'assignments'
     
     id = db.Column(db.Integer, primary_key=True)
-    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
+    task_id = db.Column(db.Integer, db.ForeignKey('tasks.id', ondelete='CASCADE'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     status = db.Column(db.String(50), nullable=False)
     

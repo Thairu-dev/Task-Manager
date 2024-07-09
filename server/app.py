@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
 
+from sqlite3 import IntegrityError
 from models import db, Task, User, Assignment
 from flask_migrate import Migrate
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -65,11 +67,23 @@ class TasksResource(Resource):
 
     def post(self):
         data = request.get_json()
+        
+            # Check if user_id is provided
+        if 'user_id' not in data:
+            return jsonify({"error": "user_id is required"}), 400
+
+        user_id = data['user_id']
+
+        # Check if the provided user_id corresponds to an existing user
+        user = User.query.get(user_id)
+        if user is None:
+            return jsonify({"error": "Invalid user_id"}), 400
         try:
             new_task = Task(
                 title=data['title'],
                 description=data['description'],
-                due_date=data['due_date']
+                due_date=datetime.strptime(data['due_date'], '%Y-%m-%d').date(),
+                user_id=user_id
             )
             db.session.add(new_task)
             db.session.commit()
@@ -85,7 +99,7 @@ class TaskResource(Resource):
             return task.to_dict(), 200
         return {"error": "Task not found"}, 404
 
-    def put(self, id):
+    def patch(self, id):
         task = db.session.get(Task, id)
         if task:
             data = request.get_json()
@@ -97,12 +111,21 @@ class TaskResource(Resource):
         return {"error": "Task not found"}, 404
 
     def delete(self, id):
-        task = db.session.get(Task, id)
-        if task:
-            db.session.delete(task)
-            db.session.commit()
-            return '', 204
-        return {"error": "Task not found"}, 404
+        try:
+            task = db.session.query(Task).get(id)
+            if task:
+                for assignment in task.assignments:
+                    db.session.delete(assignment)
+                db.session.delete(task)
+                db.session.commit()
+                return '', 204
+            return {"error": "Task not found"}, 404
+        except IntegrityError as e:
+            db.session.rollback()
+            return {"error": "Integrity error occurred while deleting task"}, 500
+        except Exception as e:
+            db.session.rollback()
+            return {"error": f"An error occurred while deleting task: {str(e)}"}, 500
 
 class AssignmentsResource(Resource):
     def get(self):
