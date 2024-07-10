@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from datetime import datetime
-from flask import CORS
+from flask_cors import CORS
 
 
 
