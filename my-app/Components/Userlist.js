@@ -21,7 +21,11 @@ function UserList() {
     }
 
     fetchUsers();
+<<<<<<< HEAD
   }, []); 
+=======
+  }, []);
+>>>>>>> 01e1754c4d4c9d055188326a58663deed663facf
 
   return (
     <div>
