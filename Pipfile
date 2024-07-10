@@ -19,6 +19,7 @@ gunicorn = "*"
 psycopg2-binary = "*"
 cors = "*"
 flask-cors = "*"
+python-dotenv = "*"
 
 [requires]
 python_full_version = "3.8.13"
