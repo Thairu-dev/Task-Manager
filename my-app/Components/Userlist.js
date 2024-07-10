@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function fetchUsers() {
@@ -14,18 +15,20 @@ function UserList() {
         })
         .then(data => {
           setUsers(data);
+          setLoading(false);
         })
         .catch(error => {
           console.error('Error fetching users:', error);
+          setLoading(false); // Ensure loading state is updated on error
         });
     }
 
     fetchUsers();
-<<<<<<< HEAD
-  }, []); 
-=======
-  }, []);
->>>>>>> 01e1754c4d4c9d055188326a58663deed663facf
+  }, []); // Empty dependency array ensures useEffect runs only once on mount
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
