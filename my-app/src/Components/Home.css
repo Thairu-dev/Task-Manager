@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+}
+
+.centered-element {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
