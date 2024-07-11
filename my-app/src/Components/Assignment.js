@@ -7,6 +7,7 @@ function AssignmentForm() {
   const [selectedTask, setSelectedTask] = useState('');
   const [selectedUser, setSelectedUser] = useState('');
   const [selectedAssignment, setSelectedAssignment] = useState('');
+  const [assignmentSuccess, setAssignmentSuccess] = useState(false); 
 
   useEffect(() => {
     fetchTasks();
@@ -15,7 +16,7 @@ function AssignmentForm() {
   }, []);
 
   function fetchTasks() {
-    fetch('/http://127.0.0.1:5555/tasks')
+    fetch('https://task-app-server-07x5.onrender.com/tasks')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -31,7 +32,7 @@ function AssignmentForm() {
   };
 
   function fetchUsers() {
-    fetch('/http://127.0.0.1:5555/users')
+    fetch('https://task-app-server-07x5.onrender.com/users')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -47,7 +48,7 @@ function AssignmentForm() {
   };
 
   function fetchAssignments() {
-    fetch('/http://127.0.0.1:5555/assignments')
+    fetch('https://task-app-server-07x5.onrender.com/assignments')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch assignments');
@@ -64,7 +65,7 @@ function AssignmentForm() {
 
   function handleAssignTask(event) {
     event.preventDefault();
-    fetch('/http://127.0.0.1:5555/assignments', {
+    fetch('https://task-app-server-07x5.onrender.com/assignments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ function AssignmentForm() {
         if (!response.ok) {
           throw new Error('Failed to assign task');
         }
-        
+        setAssignmentSuccess(true);
         fetchAssignments(); 
       })
       .catch(error => {
@@ -89,7 +90,7 @@ function AssignmentForm() {
       return;
     }
 
-    fetch(`/http://127.0.0.1:5555/assignments/${selectedAssignment}`, {
+    fetch(`https://task-app-server-07x5.onrender.com/assignments/${selectedAssignment}`, {
       method: 'DELETE',
     })
       .then(response => {
@@ -129,6 +130,8 @@ function AssignmentForm() {
         <button type="submit">Assign Task</button>
       </form>
 
+      {assignmentSuccess && <p>Task assigned successfully!</p>}
+
       <div>
         <h2>Delete Assignment</h2>
         <label>
@@ -137,7 +140,7 @@ function AssignmentForm() {
             <option value="">Select Assignment</option>
             {assignments.map(assignment => (
               <option key={assignment.id} value={assignment.id}>
-                {`Assignment ID: ${assignment.id} - Task: ${assignment.task.title} - User: ${assignment.user.name}`}
+                {assignment.task && assignment.user ? `Assignment ID: ${assignment.id} - Task: ${assignment.task.title} - User: ${assignment.user.name}` : 'Invalid Assignment Data'}
               </option>
             ))}
           </select>
