@@ -8,6 +8,7 @@ function Assignment() {
   const [selectedTask, setSelectedTask] = useState('');
   const [selectedUser, setSelectedUser] = useState('');
   const [selectedAssignment, setSelectedAssignment] = useState('');
+  const [assignmentSuccess, setAssignmentSuccess] = useState(false); 
 
   useEffect(() => {
     fetchTasks();
@@ -76,7 +77,7 @@ function Assignment() {
         if (!response.ok) {
           throw new Error('Failed to assign task');
         }
-        
+        setAssignmentSuccess(true);
         fetchAssignments(); 
       })
       .catch(error => {
@@ -131,6 +132,8 @@ function Assignment() {
         <button type="submit">Assign Task</button>
       </form>
 
+      {assignmentSuccess && <p>Task assigned successfully!</p>}
+
       <div>
         <h2>Delete Assignment</h2>
         <label>
@@ -139,7 +142,7 @@ function Assignment() {
             <option value="">Select Assignment</option>
             {assignments.map(assignment => (
               <option key={assignment.id} value={assignment.id}>
-                {`Assignment ID: ${assignment.id} - Task: ${assignment.task.title} - User: ${assignment.user.name}`}
+                {assignment.task && assignment.user ? `Assignment ID: ${assignment.id} - Task: ${assignment.task.title} - User: ${assignment.user.name}` : 'Invalid Assignment Data'}
               </option>
             ))}
           </select>
