@@ -7,6 +7,7 @@ import TaskForm from "./Components/TaskForm";
 import TaskList from "./Components/TaskList";
 import Userlist from "./Components/Userlist";
 import Home from "./Components/Home"
+import TaskPage from "./Components/TaskPage";
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/taskform" element={<TaskForm/>}/>
         <Route path="/tasklist" element={<TaskList/>}/>
         <Route path="/userlist" element={<Userlist/>}/>
+        <Route path="/taskpage" element={<TaskPage/>}/>
 
     </Routes>
 </BrowserRouter>

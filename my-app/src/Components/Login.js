@@ -19,11 +19,11 @@ const Login = () => {
         })
         .then(response => response.json())
         .then(data => {
-            // Handle successful login, e.g., store user data in state or local storage.
+            
             console.log('Login successful!', data);
         })
         .catch(error => {
-            // Handle login error, e.g., display error message to the user.
+        
             console.error('Login error:', error);
         });
     };
