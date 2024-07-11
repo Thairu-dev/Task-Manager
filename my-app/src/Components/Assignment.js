@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
-function AssignmentForm() {
+function Assignment() {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
   const [assignments, setAssignments] = useState([]);
@@ -15,7 +16,7 @@ function AssignmentForm() {
   }, []);
 
   function fetchTasks() {
-    fetch('/http://127.0.0.1:5555/tasks')
+    fetch('https://task-app-server-07x5.onrender.com/tasks')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
@@ -31,7 +32,7 @@ function AssignmentForm() {
   };
 
   function fetchUsers() {
-    fetch('/http://127.0.0.1:5555/users')
+    fetch('https://task-app-server-07x5.onrender.com/users')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch users');
@@ -47,7 +48,7 @@ function AssignmentForm() {
   };
 
   function fetchAssignments() {
-    fetch('/http://127.0.0.1:5555/assignments')
+    fetch('https://task-app-server-07x5.onrender.com/assignments')
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch assignments');
@@ -64,7 +65,7 @@ function AssignmentForm() {
 
   function handleAssignTask(event) {
     event.preventDefault();
-    fetch('/http://127.0.0.1:5555/assignments', {
+    fetch('https://task-app-server-07x5.onrender.com/assignments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ function AssignmentForm() {
       return;
     }
 
-    fetch(`/http://127.0.0.1:5555/assignments/${selectedAssignment}`, {
+    fetch(`https://task-app-server-07x5.onrender.com/assignments/${selectedAssignment}`, {
       method: 'DELETE',
     })
       .then(response => {
@@ -106,6 +107,7 @@ function AssignmentForm() {
 
   return (
     <div>
+      <Navbar />
       <h2>Assign Task</h2>
       <form onSubmit={handleAssignTask}>
         <label>
@@ -148,4 +150,4 @@ function AssignmentForm() {
   );
 }
 
-export default AssignmentForm;
+export default Assignment;

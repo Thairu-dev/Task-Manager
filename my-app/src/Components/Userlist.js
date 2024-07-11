@@ -7,7 +7,7 @@ function UserList() {
 
   useEffect(() => {
     function fetchUsers() {
-      fetch('http://127.0.0.1:5555/users')
+      fetch('https://task-app-server-07x5.onrender.com/users')
         .then(response => {
           if (!response.ok) {
             throw new Error('Failed to fetch users');
@@ -29,7 +29,7 @@ function UserList() {
     event.preventDefault();
     const newUser = { name, email };
 
-    fetch('http://127.0.0.1:5555/users', {
+    fetch('https://task-app-server-07x5.onrender.com/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function UserList() {
   };
 
 function handleDeleteUser (userId) {
-    fetch(`http://127.0.0.1:5555/users/${userId}`, {
+    fetch(`https://task-app-server-07x5.onrender.com/users/${userId}`, {
       method: 'DELETE',
     })
       .then(response => {
