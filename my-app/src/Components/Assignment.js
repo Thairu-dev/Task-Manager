@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar';
 
-function Assignment() {
+function AssignmentForm() {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
-  const [assignments, setAssignments] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
   const [selectedUser, setSelectedUser] = useState('');
-  const [selectedAssignment, setSelectedAssignment] = useState('');
-  const [assignmentSuccess, setAssignmentSuccess] = useState(false); 
+  const [status, setStatus] = useState(''); // New state for status
 
   useEffect(() => {
     fetchTasks();
     fetchUsers();
-    fetchAssignments();
   }, []);
 
   function fetchTasks() {
@@ -48,67 +44,29 @@ function Assignment() {
       });
   };
 
-  function fetchAssignments() {
-    fetch('https://task-app-server-07x5.onrender.com/assignments')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch assignments');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setAssignments(data);
-      })
-      .catch(error => {
-        console.error('Error fetching assignments:', error);
-      });
-  };
-
   function handleAssignTask(event) {
     event.preventDefault();
+    const assignmentData = { "task_id": selectedTask, "user_id": selectedUser, "status": status};
+    console.log(assignmentData)
     fetch('https://task-app-server-07x5.onrender.com/assignments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ taskId: selectedTask, userId: selectedUser }),
+      body: JSON.stringify(assignmentData),
     })
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to assign task');
         }
-        setAssignmentSuccess(true);
-        fetchAssignments(); 
       })
       .catch(error => {
         console.error('Error assigning task:', error);
       });
   };
 
-  function handleDeleteAssignment() {
-    if (!selectedAssignment) {
-      alert('Please select an assignment to delete.');
-      return;
-    }
-
-    fetch(`https://task-app-server-07x5.onrender.com/assignments/${selectedAssignment}`, {
-      method: 'DELETE',
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to delete assignment');
-        }
-        
-        fetchAssignments(); 
-      })
-      .catch(error => {
-        console.error('Error deleting assignment:', error);
-      });
-  };
-
   return (
     <div>
-      <Navbar />
       <h2>Assign Task</h2>
       <form onSubmit={handleAssignTask}>
         <label>
@@ -129,28 +87,19 @@ function Assignment() {
             ))}
           </select>
         </label>
-        <button type="submit">Assign Task</button>
-      </form>
-
-      {assignmentSuccess && <p>Task assigned successfully!</p>}
-
-      <div>
-        <h2>Delete Assignment</h2>
         <label>
-          Select Assignment:
-          <select value={selectedAssignment} onChange={(e) => setSelectedAssignment(e.target.value)} required>
-            <option value="">Select Assignment</option>
-            {assignments.map(assignment => (
-              <option key={assignment.id} value={assignment.id}>
-                {assignment.task && assignment.user ? `Assignment ID: ${assignment.id} - Task: ${assignment.task.title} - User: ${assignment.user.name}` : 'Invalid Assignment Data'}
-              </option>
-            ))}
+          Status:
+          <select value={status} onChange={(e) => setStatus(e.target.value)} required>
+            <option value="">Select Status</option>
+            <option value="In Progress">Not Started</option>
+            <option value="Pending">In Progress</option>
+            <option value="Completed">Completed</option>
           </select>
         </label>
-        <button onClick={handleDeleteAssignment}>Delete Assignment</button>
-      </div>
+        <button type="submit">Assign Task</button>
+      </form>
     </div>
   );
 }
 
-export default Assignment;
+export default AssignmentForm;
