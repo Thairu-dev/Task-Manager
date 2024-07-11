@@ -10,7 +10,11 @@ export default function Home() {
     <Navbar />
     <h1>Task manager app</h1>
       
-      <img className='centered-element' src={"./images/3894977.jpg"} width={"400px"} alt={"home-img"}/>
+      <img className='centered-element' src={"./images/3894977.jpg"} width={"200px"} alt={"home-img"}/>
+      
+      <h2 className='home-h1'><strong>Task manager app</strong> 
+      <br></br> 
+      An that helps you manage tasks by letting you add users, add new tasks and assign the tasks to your users. </h2>
 
      
     </div>
