@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TaskItem from './TaskItem'; // Assuming TaskItem component exists
+// import TaskList from './Tasklist';
+import Navbar from './Navbar';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -29,6 +31,7 @@ const TaskList = () => {
 
   return (
     <div>
+      <Navbar/>
       <h2>Task List</h2>
       {loading ? (
         <p>Loading...</p>

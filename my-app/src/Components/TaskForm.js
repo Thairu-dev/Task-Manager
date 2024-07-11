@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 const TaskForm = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
@@ -33,6 +34,8 @@ const TaskForm = ({ onAddTask }) => {
   };
 
   return (
+    <div>
+      <Navbar/>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -53,6 +56,7 @@ const TaskForm = ({ onAddTask }) => {
       />
       <button type="submit">Create Task</button>
     </form>
+    </div>
   );
 };
 

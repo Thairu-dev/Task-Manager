@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -69,6 +70,7 @@ function handleDeleteUser (userId) {
 
   return (
     <div>
+      <Navbar/>
       <h2>User List</h2>
       <ul>
         {users.map(user => (
