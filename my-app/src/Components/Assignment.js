@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
-function AssignmentForm() {
+function Assignment() {
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
   const [assignments, setAssignments] = useState([]);
@@ -107,6 +108,7 @@ function AssignmentForm() {
 
   return (
     <div>
+      <Navbar />
       <h2>Assign Task</h2>
       <form onSubmit={handleAssignTask}>
         <label>
@@ -151,4 +153,4 @@ function AssignmentForm() {
   );
 }
 
-export default AssignmentForm;
+export default Assignment;
