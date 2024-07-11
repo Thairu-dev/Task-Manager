@@ -3,19 +3,17 @@
 import React, { useState } from 'react';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        // Here you would typically send a POST request to your Flask backend
-        // to authenticate the user with the provided username and password.
-        // Example:
-        fetch('https://task-app-server-07x5.onrender.com/', {
+       console.log(JSON.stringify({email, password}))
+        fetch('https://task-app-server-07x5.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, password }),
         })
         .then(response => response.json())
         .then(data => {
@@ -32,8 +30,8 @@ const Login = () => {
         <div>
             <h2>Login</h2>
             <form onSubmit={e => { e.preventDefault(); handleLogin(); }}>
-                <label>Username:
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                <label>Email:
+                    <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
                 </label>
                 <br />
                 <label>Password:
