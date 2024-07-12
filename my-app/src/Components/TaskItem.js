@@ -9,10 +9,15 @@ const TaskItem = ({ task, onDelete }) => {
         <h3>{title}</h3>
         <p><strong>Due Date:</strong> {due_date}</p>
         <p>{description}</p>
-        <button onClick={onDelete}>Delete</button>
+        <button class="ui button" onClick={onDelete}>Delete</button>
       </div>
     </li>
+    
   );
 };
 
+
+
 export default TaskItem;
+
+

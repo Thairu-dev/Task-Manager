@@ -69,21 +69,29 @@ function handleDeleteUser (userId) {
   };
 
   return (
-    <div>
+    <div className='userlist-container' >
       <Navbar/>
       <h2>User List</h2>
-      <ul>
+      <ul className="ul-list">
         {users.map(user => (
-          <li key={user.id}>{user.name} - {user.email}<button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+          <li className='row' key={user.id}>
+          {user.name} <br></br> {user.email} 
+          <br></br>
+          <button class="ui button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
           </li>
         ))}
+        
       </ul>
       <h3>Add New User</h3>
-      <form onSubmit={handleAddUser}>
+      <form className='adduser-form' onSubmit={handleAddUser}>
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}required/>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-        <button type="submit">Add User</button>
+        <br></br>
+        <button class="ui button" type="submit">Add User</button>
+        
+        
       </form>
+     
     </div>
   );
 }
