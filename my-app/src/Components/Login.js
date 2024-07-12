@@ -10,7 +10,7 @@ const Login = () => {
         // Here you would typically send a POST request to your Flask backend
         // to authenticate the user with the provided username and password.
         // Example:
-        fetch('https://task-app-server-07x5.onrender.com/', {
+        fetch('https://task-app-server-07x5.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

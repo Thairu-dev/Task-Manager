@@ -12,3 +12,92 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* .centered-element {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  margin: auto;
+} */
+
+ul {
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; 
+  
+  
+}
+
+ul li {
+  border: 1px solid #ddd; 
+  margin-top: -1px; 
+  background-color: #f6f6f6; 
+  padding: 12px; 
+
+}
+
+.task-list {
+  text-align: center;
+}
+
+.ul-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  /* flex-direction: column; */
+  
+}
+.ul-list li {
+  /* flex-direction: column; */
+  float: left;
+}
+
+.userlist-container{
+  text-align: center;
+
+}
+.profile-img{
+  height: 20px;
+  width: 20px;
+}
+.adduser-form input{
+    border: 1px solid rgba(2, 2, 2, 0.4);
+    background-color: rgba(252, 252, 252, 0.2);
+    width: 250px;
+    border-radius: 3px;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    color: black;
+    font-weight: 300;
+    display: inline;
+}
+.assignment-form select{
+  border: 1px solid rgba(2, 2, 2, 0.4);
+  background-color: rgba(252, 252, 252, 0.2);
+  width: 250px;
+  border-radius: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: black;
+  font-weight: 300;
+  /* display: inline; */
+}
+.assignment-form{
+  text-align: center;
+}
+.assignment-heading{
+  text-align: center;
+}
+.assignments-container{
+  margin-top: 8%;
+}
