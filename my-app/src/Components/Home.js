@@ -14,7 +14,7 @@ export default function Home() {
       
       <h2 className='home-h1'><strong>Task manager app</strong> 
       <br></br> 
-      An that helps you manage tasks by letting you add users, add new tasks and assign the tasks to your users. </h2>
+      An app that helps you manage tasks by letting you add users, add new tasks and assign the tasks to your users. </h2>
 
      
     </div>

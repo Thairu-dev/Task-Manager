@@ -7,7 +7,7 @@ function AssignmentForm() {
   const [users, setUsers] = useState([]);
   const [selectedTask, setSelectedTask] = useState('');
   const [selectedUser, setSelectedUser] = useState('');
-  const [status, setStatus] = useState(''); // New state for status
+  const [status, setStatus] = useState(''); 
 
   useEffect(() => {
     fetchTasks();
@@ -61,6 +61,10 @@ function AssignmentForm() {
         if (!response.ok) {
           throw new Error('Failed to assign task');
         }
+      })
+      .then(data => {
+        console.log('Task assigned successfully:', data);
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error assigning task:', error);

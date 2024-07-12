@@ -47,6 +47,7 @@ function UserList() {
         setUsers([...users, addedUser]);
         setName('');
         setEmail('');
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error adding user:', error);
