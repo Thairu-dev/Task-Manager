@@ -22,7 +22,7 @@ const TaskList = () => {
   }, []);
 
   const handleDeleteTask = (id) => {
-    axios.delete(`https://task-app-server-07x5.onrender.com/tasks${id}`)
+    axios.delete(`https://task-app-server-07x5.onrender.com/tasks/${id}`)
       .then(response => {
         setTasks(tasks.filter(task => task.id !== id));
       })
@@ -32,7 +32,7 @@ const TaskList = () => {
   return (
     <div>
       <Navbar/>
-      <h2>Task List</h2>
+      <h2 className='task-list' >Tasks List</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -47,3 +47,4 @@ const TaskList = () => {
 };
 
 export default TaskList;
+

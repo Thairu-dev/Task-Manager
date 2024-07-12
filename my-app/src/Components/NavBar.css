@@ -8,24 +8,14 @@
     text-decoration: none;
     text-align: center;
     font-size: min(10vw, 15px) ;
-    color: black;
+    color: whitesmoke;
+    
     
     
 }
 
 nav {
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    background-color: black;
 }
 
-/* .navbar > {
-    display: inline-block;
-    box-sizing: border-box;
-    width: 210px;
-    padding: 5px;
-    margin: 0 6px 6px;
-    text-decoration: none;
-    text-align: center;
-    font-size: min(10vw, 15px) ;
-    color: whitesmoke;
-    
-} */
