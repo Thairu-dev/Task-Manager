@@ -11,7 +11,7 @@ function Navbar() {
       <NavLink className= "navbar" to="/tasklist" >Available Tasks</NavLink>
       <NavLink className= "navbar" to="/userlist" >Users</NavLink>
       <NavLink className= "navbar" to="/assignment" >Assignments</NavLink>
-      <NavLink className= "navbar" to="/login" >Login</NavLink>
+      {/* <NavLink className= "navbar" to="/login" >Login</NavLink> */}
       
 
       

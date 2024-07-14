@@ -48,7 +48,7 @@ const TaskList = () => {
     <div>
       <Navbar/>
       <h2 className='task-list'>Tasks List</h2>
-      
+      {/* <div className='addtask-container'>
       <input 
         type="text" 
         placeholder="Search tasks..." 
@@ -56,7 +56,7 @@ const TaskList = () => {
         onChange={(e) => setSearchTerm(e.target.value)} 
       />
 
-      <form onSubmit={handleCreateTask}>
+      <form className='addtask-form' onSubmit={handleCreateTask}>
         <input 
           type="text" 
           placeholder="Title" 
@@ -77,8 +77,9 @@ const TaskList = () => {
           onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} 
           required 
         />
-        <button type="submit">Add Task</button>
+        <button class="ui button" type="submit">Add Task</button>
       </form>
+      </div> */}
 
       {loading ? (
         <p>Loading...</p>
