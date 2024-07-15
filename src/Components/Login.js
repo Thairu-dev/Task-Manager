@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+import './Login.css'; // Import the CSS file for styling
 
 const LoginForm = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('');
@@ -54,7 +55,7 @@ const LoginForm = ({ setIsAuthenticated }) => {
                 setError(data.error || 'Login failed');
             }
         })
-        .catch((error) => {
+        .catch(() => {
             setError('An error occurred. Please try again.');
         });
     };
@@ -79,32 +80,33 @@ const LoginForm = ({ setIsAuthenticated }) => {
         <div>
             <Navbar />
             {isAuthenticated ? (
-                <div>
+                <div className='welcome-message'>
                     <h2>Welcome, {userName}</h2>
-                    <button onClick={handleLogout}>Logout</button>
+                    <button className="ui button1" onClick={handleLogout}>Logout</button>
                 </div>
             ) : (
-                <form onSubmit={handleLogin}>
+                <form className='login-form' onSubmit={handleLogin}>
                     <div>
-                        <label>Email:</label>
+                        <h2>Login</h2>
                         <input
                             type="email"
+                            placeholder='Email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
                     <div>
-                        <label>Password:</label>
                         <input
                             type="password"
+                            placeholder='Password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
-                    <button type="submit">Login</button>
-                    {error && <p>{error}</p>}
+                    <button className="ui button1" type="submit">Login</button>
+                    {error && <p className="error">{error}</p>}
                 </form>
             )}
         </div>

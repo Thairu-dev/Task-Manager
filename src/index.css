@@ -1,11 +1,16 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: black; */
+  font-family: "Source Sans Pro", sans-serif;
+  color: rgb(14, 13, 13);
+  font-weight: 300;
+  /* background: #50a3a2; */
+  background: #f0f2f5;;
 }
 
 code {
@@ -30,7 +35,7 @@ ul {
 }
 
 ul li {
-  border: 1px solid #ddd; 
+  border: 5px solid #ddd; 
   margin-top: -1px; 
   background-color: #f6f6f6; 
   padding: 12px; 
@@ -100,4 +105,72 @@ ul li {
 }
 .assignments-container{
   margin-top: 8%;
+}
+.login-from{
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  background-color: rgba(252, 252, 252, 0.2);
+  width: 250px;
+  border-radius: 3px;
+  /* font-family: "Source Sans Pro", sans-serif; */
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(14, 13, 13);
+  font-weight: 300;
+  margin-top: 100px;
+}
+.login-form input{
+  border: 1px solid rgba(252, 252, 252, 0.4);
+  background-color: rgba(252, 252, 252, 0.2);
+  width: 250px;
+  border-radius: 3px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(14, 13, 13);
+  font-weight: 300;
+   
+}
+/* .login-container{
+    margin: -20px auto;
+    padding: 80px 0;
+    align-items: center;
+} */ 
+
+.ul-assigment{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10%;
+  justify-content: center;
+  
+}
+.ul-assigment li{
+  float: left;
+  align-items: center;
+}
+/* .ul-assigment{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+
+} */
+.footer-container{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /* margin-left: 20%; */
+  
+} 
+.footer-container p{
+  margin-left: 20px;
+  margin-right: 20px;
 }
