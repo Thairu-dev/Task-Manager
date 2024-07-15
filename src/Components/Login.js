@@ -1,47 +1,114 @@
-// Login.js
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
-import React, { useState } from 'react';
-
-const Login = () => {
-    const [username, setUsername] = useState('');
+const LoginForm = ({ setIsAuthenticated }) => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isAuthenticated, setLocalIsAuthenticated] = useState(false);
+    const [userName, setUserName] = useState('');
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
-        
+    useEffect(() => {
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+            setIsAuthenticated(true);
+            setLocalIsAuthenticated(true);
+            setUserName(user.name);
+        } else {
+            fetch('https://task-app-server-07x5.onrender.com/check_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id) {
+                        setIsAuthenticated(true);
+                        setLocalIsAuthenticated(true);
+                        setUserName(data.name);
+                        localStorage.setItem('user', JSON.stringify(data));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }, [setIsAuthenticated]);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
         fetch('https://task-app-server-07x5.onrender.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, password })
         })
-        .then(response => response.json())
-        .then(data => {
-            // Handle successful login, e.g., store user data in state or local storage.
-            console.log('Login successful!', data);
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.id) {
+                setIsAuthenticated(true);
+                setLocalIsAuthenticated(true);
+                setUserName(data.name);
+                localStorage.setItem('user', JSON.stringify(data));
+                navigate('/');
+            } else {
+                setError(data.error || 'Login failed');
+            }
         })
-        .catch(error => {
-            // Handle login error, e.g., display error message to the user.
-            console.error('Login error:', error);
+        .catch((error) => {
+            setError('An error occurred. Please try again.');
+        });
+    };
+
+    const handleLogout = () => {
+        fetch('https://task-app-server-07x5.onrender.com/logout', {
+            method: 'DELETE'
+        })
+        .then(() => {
+            setIsAuthenticated(false);
+            setLocalIsAuthenticated(false);
+            setUserName('');
+            localStorage.removeItem('user');
+            navigate('/');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
     };
 
     return (
         <div>
-            <h2>Login</h2>
-            <form onSubmit={e => { e.preventDefault(); handleLogin(); }}>
-                <label>Username:
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-                </label>
-                <br />
-                <label>Password:
-                    <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                </label>
-                <br />
-                <button type="submit">Login</button>
-            </form>
+            <Navbar />
+            {isAuthenticated ? (
+                <div>
+                    <h2>Welcome, {userName}</h2>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
+            ) : (
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit">Login</button>
+                    {error && <p>{error}</p>}
+                </form>
+            )}
         </div>
     );
 };
 
-export default Login;
+export default LoginForm;
