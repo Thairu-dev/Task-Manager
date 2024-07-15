@@ -77,7 +77,7 @@ const TaskList = () => {
           onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} 
           required 
         />
-        <button type="submit">Add Task</button>
+        <button className='ui blue button' type="submit">Add Task</button>
       </form>
 
       {loading ? (

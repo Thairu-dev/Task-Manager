@@ -146,28 +146,32 @@ function AssignmentForm() {
             </select>
           </label>
           <br />
-          <button className="ui button" type="submit">Assign Task</button>
+          <button className="ui blue button" type="submit">Assign Task</button>
         </form>
-        <h2>Assignments</h2>
-        <ul>
+        <br></br>
+        
+        <div className='assignment-cont' >
+        {/* <h2>Assignments</h2> */}
+        <ul className='ul-assigment'>
           {assignments.map(assignment => (
             <li key={assignment.id}>
-              Task: {assignment.task_id || 'N/A'} - User: {assignment.user_id || 'N/A'} - Status: {assignment.status}
-              {assignment.status === 'Not Started' && (
-                <button onClick={() => updateAssignmentStatus(assignment.id, 'In Progress')}>Start</button>
+              Task: {assignment.task_id || 'N/A'}   User: {assignment.user_id || 'N/A'} <br></br>  Status: <br></br> {assignment.status}
+              {assignment.status === 'Not Started' && ( 
+                <button className="tiny ui blue button " onClick={() => updateAssignmentStatus(assignment.id, 'In Progress')}>Start</button>
               )}
               {assignment.status === 'In Progress' && (
                 <>
-                  <button onClick={() => updateAssignmentStatus(assignment.id, 'Not Started')}>Reset</button>
-                  <button onClick={() => updateAssignmentStatus(assignment.id, 'Completed')}>Complete</button>
+                  <button className="tiny ui blue button" onClick={() => updateAssignmentStatus(assignment.id, 'Not Started')}>Reset</button>
+                  <button className="tiny ui blue button" onClick={() => updateAssignmentStatus(assignment.id, 'Completed')}>Complete</button>
                 </>
               )}
               {assignment.status === 'Completed' && (
-                <button onClick={() => updateAssignmentStatus(assignment.id, 'In Progress')}>Reopen</button>
+                <button className="tiny ui blue button" onClick={() => updateAssignmentStatus(assignment.id, 'In Progress')}>Reopen</button>
               )}
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </div>
   );
