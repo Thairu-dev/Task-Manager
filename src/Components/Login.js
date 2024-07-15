@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
+import './Login.css'; 
 
 const LoginForm = ({ setIsAuthenticated }) => {
     const [email, setEmail] = useState('');

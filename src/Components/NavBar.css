@@ -15,7 +15,7 @@
 }
 
 nav {
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    background-color: black;
+    box-shadow: 0 3px 10px rgba(109, 12, 12, 0.2);
+    background-color: rgb(20, 8, 75);
 }
 

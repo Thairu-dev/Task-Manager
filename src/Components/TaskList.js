@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TaskItem from './TaskItem';
 import Navbar from './Navbar';
+import './TaskList.css'; // Import the TaskList.css for styling
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
@@ -84,24 +85,26 @@ const TaskList = () => {
   );
 
   return (
-    <div>
+    <div className="task-list-container">
       <Navbar />
-      <h2 className='task-list'>Tasks List</h2>
+      <h2 className='task-list-heading'>Tasks List</h2>
       
       <input 
         type="text" 
         placeholder="Search tasks..." 
         value={searchTerm} 
         onChange={(e) => setSearchTerm(e.target.value)} 
+        className="search-input"
       />
 
-      <form onSubmit={handleCreateTask}>
+      <form onSubmit={handleCreateTask} className="task-form">
         <input 
           type="text" 
           placeholder="Title" 
           value={newTask.title} 
           onChange={(e) => setNewTask({ ...newTask, title: e.target.value })} 
           required 
+          className="task-input"
         />
         <input 
           type="date" 
@@ -109,17 +112,20 @@ const TaskList = () => {
           value={newTask.dueDate} 
           onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })} 
           required 
+          className="task-input"
         />
         <textarea 
           placeholder="Description" 
           value={newTask.description} 
           onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} 
           required 
+          className="task-textarea"
         />
         <select
           value={newTask.userId}
           onChange={(e) => setNewTask({ ...newTask, userId: e.target.value })}
           required
+          className="task-select"
         >
           <option value="">Select User</option>
           {users.map(user => (
@@ -128,13 +134,13 @@ const TaskList = () => {
             </option>
           ))}
         </select>
-        <button type="submit">Add Task</button>
+        <button type="submit" className="task-button">Add Task</button>
       </form>
 
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
+        <ul className="task-items">
           {filteredTasks.map(task => (
             <TaskItem key={task.id} task={task} onDelete={() => handleDeleteTask(task.id)} />
           ))}

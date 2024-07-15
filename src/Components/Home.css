@@ -1,14 +1,86 @@
-h1 {
+/* Home.css */
+
+/* Main container styles */
+.home-container {
+    font-family: 'Arial, sans-serif';
+    color: #333;
+  }
+  
+  .home-heading {
     text-align: center;
-}
-
-.centered-element {
-    width: 40%;
-    float: left;
-
-}
-
-.home-h1 {
-    padding-top: 10%;
-    
-}
+    margin: 20px 0;
+    font-size: 2em;
+  }
+  
+  /* Container for each major section */
+  .assignment-form-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Added margin bottom for spacing between sections */
+  }
+  
+  .image-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .home-image {
+    width: 30%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+  }
+  
+  .text-container {
+    padding: 0 20px;
+  }
+  
+  .text-heading {
+    text-align: left;
+    font-size: 1.5em;
+  }
+  
+  .paragraphs-container {
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 20px;
+    font-size: 1.2em;
+  }
+  
+  .paragraph {
+    margin-bottom: 20px;
+  }
+  
+  .footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .social-links {
+    margin-bottom: 20px;
+  }
+  
+  .footer a {
+    margin: 0 10px;
+    color: #fff;
+  }
+  
+  .contact-info {
+    margin-top: 20px;
+  }
+  
+  .contact-info a {
+    color: #fff;
+  }
+  
