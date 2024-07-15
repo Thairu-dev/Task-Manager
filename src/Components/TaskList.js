@@ -1,90 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import TaskItem from './TaskItem';
+import axios from 'axios';
+import TaskItem from './TaskItem'; 
 import Navbar from './Navbar';
-
-function formatDateToYMD(dateString) {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [newTask, setNewTask] = useState({ title: '', due_date: '', description: '', user_id: '' });
-  const [users, setUsers] = useState([]);
+  const [newTask, setNewTask] = useState({ title: '', dueDate: '', description: '' });
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch('https://task-app-server-07x5.onrender.com/tasks');
-        if (!response.ok) {
-          throw new Error('Error fetching tasks');
-        }
-        const data = await response.json();
-        setTasks(data);
+    setLoading(true);
+    axios.get('https://task-app-server-07x5.onrender.com/tasks')
+      .then(response => {
+        setTasks(response.data);
         setLoading(false);
-      } catch (error) {
+      })
+      .catch(error => {
         console.error(error);
         setLoading(false);
-      }
-    };
-
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('https://task-app-server-07x5.onrender.com/users');
-        if (!response.ok) {
-          throw new Error('Error fetching users');
-        }
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTasks();
-    fetchUsers();
+      });
   }, []);
 
-  const handleDeleteTask = async (id) => {
-    try {
-      const response = await fetch(`https://task-app-server-07x5.onrender.com/tasks/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Error deleting task');
-      }
-      setTasks(tasks.filter(task => task.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
+  const handleDeleteTask = (id) => {
+    axios.delete(`https://task-app-server-07x5.onrender.com/tasks/${id}`)
+      .then(response => {
+        setTasks(tasks.filter(task => task.id !== id));
+      })
+      .catch(error => console.error(error));
   };
 
-  const handleCreateTask = async (e) => {
-    console.log(JSON.stringify(newTask))
+  const handleCreateTask = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('https://task-app-server-07x5.onrender.com/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTask),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to create task: Server responded with ' + response.status);
-      }
-      const data = await response.json();
-      setTasks([...tasks, data]);
-      setNewTask({ title: '', due_date: '', description: '', user_id: '' });
-    } catch (error) {
-      console.error('Error creating task:', error);
-    }
+    axios.post('https://task-app-server-07x5.onrender.com/tasks', newTask)
+      .then(response => {
+        setTasks([...tasks, response.data]);
+        setNewTask({ title: '', dueDate: '', description: '' });
+      })
+      .catch(error => console.error(error));
   };
 
   const filteredTasks = tasks.filter(task =>
@@ -93,7 +46,7 @@ const TaskList = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <h2 className='task-list'>Tasks List</h2>
       
       <input 
@@ -114,11 +67,8 @@ const TaskList = () => {
         <input 
           type="date" 
           placeholder="Due Date" 
-          value={newTask.due_date} 
-          onChange={(e) => {
-            const formattedDate = formatDateToYMD(e.target.value);
-            setNewTask({ ...newTask, due_date: formattedDate });
-          }}  
+          value={newTask.dueDate} 
+          onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })} 
           required 
         />
         <textarea 
@@ -127,18 +77,6 @@ const TaskList = () => {
           onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} 
           required 
         />
-        <select
-          value={newTask.user_id}
-          onChange={(e) => setNewTask({ ...newTask, user_id: e.target.value })}
-          required
-        >
-          <option value="">Select User</option>
-          {users.map(user => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
-          ))}
-        </select>
         <button type="submit">Add Task</button>
       </form>
 
