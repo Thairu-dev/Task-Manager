@@ -1,43 +1,82 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import TaskItem from './TaskItem'; 
+import TaskItem from './TaskItem';
 import Navbar from './Navbar';
 
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [newTask, setNewTask] = useState({ title: '', dueDate: '', description: '' });
+  const [newTask, setNewTask] = useState({ title: '', dueDate: '', description: '', userId: '' });
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-    axios.get('https://task-app-server-07x5.onrender.com/tasks')
+    // Fetch tasks
+    fetch('https://task-app-server-07x5.onrender.com/tasks')
       .then(response => {
-        setTasks(response.data);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setTasks(data);
         setLoading(false);
       })
       .catch(error => {
-        console.error(error);
+        console.error('Error fetching tasks:', error);
         setLoading(false);
+      });
+
+    // Fetch users
+    fetch('https://task-app-server-07x5.onrender.com/users')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setUsers(data);
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
       });
   }, []);
 
   const handleDeleteTask = (id) => {
-    axios.delete(`https://task-app-server-07x5.onrender.com/tasks/${id}`)
+    fetch(`https://task-app-server-07x5.onrender.com/tasks/${id}`, {
+      method: 'DELETE'
+    })
       .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         setTasks(tasks.filter(task => task.id !== id));
       })
-      .catch(error => console.error(error));
+      .catch(error => console.error('Error deleting task:', error));
   };
 
   const handleCreateTask = (e) => {
     e.preventDefault();
-    axios.post('https://task-app-server-07x5.onrender.com/tasks', newTask)
+    fetch('https://task-app-server-07x5.onrender.com/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTask),
+    })
       .then(response => {
-        setTasks([...tasks, response.data]);
-        setNewTask({ title: '', dueDate: '', description: '' });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
       })
-      .catch(error => console.error(error));
+      .then(data => {
+        setTasks([...tasks, data]);
+        setNewTask({ title: '', dueDate: '', description: '', userId: '' });
+      })
+      .catch(error => console.error('Error creating task:', error));
   };
 
   const filteredTasks = tasks.filter(task =>
@@ -46,7 +85,7 @@ const TaskList = () => {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <h2 className='task-list'>Tasks List</h2>
       
       <input 
@@ -77,6 +116,18 @@ const TaskList = () => {
           onChange={(e) => setNewTask({ ...newTask, description: e.target.value })} 
           required 
         />
+        <select
+          value={newTask.userId}
+          onChange={(e) => setNewTask({ ...newTask, userId: e.target.value })}
+          required
+        >
+          <option value="">Select User</option>
+          {users.map(user => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
         <button type="submit">Add Task</button>
       </form>
 
