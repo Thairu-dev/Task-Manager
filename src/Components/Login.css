@@ -1,0 +1,68 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.login-form div {
+    margin-bottom: 15px;
+}
+
+.login-form input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.ui.button1 {
+    width: 5%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    
+}
+
+.ui.button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.welcome-message {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.welcome-message h2 {
+    margin-bottom: 20px;
+}
+
+.welcome-message .ui.button {
+    margin-top: 20px;
+}

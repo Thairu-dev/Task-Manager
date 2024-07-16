@@ -78,7 +78,7 @@ function handleDeleteUser (userId) {
           <li className='row' key={user.id}>
           {user.name} <br></br> {user.email} 
           <br></br>
-          <button class="ui button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
+          <button class="ui blue button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
           </li>
         ))}
         
@@ -88,7 +88,7 @@ function handleDeleteUser (userId) {
         <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}required/>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
         <br></br>
-        <button class="ui button" type="submit">Add User</button>
+        <button class="ui blue button" type="submit">Add User</button>
         
         
       </form>
